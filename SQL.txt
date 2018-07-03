@@ -1,0 +1,56 @@
+create database customers;
+use customers;
+
+
+desc customers;
+
+
+select distinct company from customers;
+
+use Customers;
+
+CREATE TABLE company (
+ ID int NOT NULL AUTO_INCREMENT,
+ company_name varchar(50),
+ PRIMARY KEY (ID)
+);
+
+
+
+insert into company (company_name) select distinct company from customers;
+
+-- add a column for the CompanyID to the customers table
+alter table customers add CompanyID int;
+
+
+select companyID, company from customers;
+
+-- update the compnayId in the customers table
+update customers c set c.companyID = (select t.ID from
+company t where t.company_name=c.company);
+
+
+
+select * from customers;
+
+select c.companyID,c.company,t.ID,t.company_name from
+customers c inner join company t on c.CompanyID=t.ID;
+
+
+alter table customers drop column company;
+
+select * from customers;
+
+
+select fullname, company_name from customers 
+inner join Company on 
+customers.companyid=Company.id;
+
+
+-- List all the people in the customer's table who's last name is Smith.
+select * from customers where lastName='Smith';
+
+-- List all the customers and their employers and positions that live in Toledo
+select * from customers where City='Toledo';
+
+
